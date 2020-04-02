@@ -12,14 +12,15 @@ const RenderPieChart = ({chart}) => {
 
     const [chartData, setChartData] = useState({
         type: 'Pie',
-        data: ""
+        data: "",
+        title:""
       
       })
       
       const loadData = async () =>{
       
         const res = await getChartData(chart._id);
-        setChartData({...chartData, data:res});
+        setChartData({...chartData, data:res.data,title:res.title});
         
       }
       
@@ -32,13 +33,13 @@ const RenderPieChart = ({chart}) => {
         return () => clearInterval(interval);
       }, []);
       
-      const {data} = chartData;
+      const {data,title} = chartData;
 
    if (!data) return <Loading/>
 
     return (
       <div style={{ width: '100%', height: 400 }} className="post" >
-        <h2>Title</h2>
+        <h2>{title}</h2>
         <ResponsiveContainer>
           <PieChart>
             <Pie dataKey="value" data={data} fill="#8884d8" label >

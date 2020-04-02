@@ -23,7 +23,7 @@ const [chartData, setChartData] = useState({
 const loadData = async () =>{
 
   const res = await getChartData(chart._id);
-  setChartData({...chartData, data:res});
+  setChartData({...chartData, data:res.data,title:res.title});
   
 }
 
@@ -36,13 +36,13 @@ useEffect(  () => {
   return () => clearInterval(interval);
 }, []);
 
-const {data} = chartData;
+const {data,title} = chartData;
 
 if (!data) return <Loading/>
 
     return (
       <div className='post'>
-      <h2>Title</h2>
+      <h2>{title}</h2>
       <LineChart
         width={500}
         height={300}
@@ -55,7 +55,7 @@ if (!data) return <Loading/>
         <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick />} interval={0} />
         <YAxis />
         <Tooltip />
-        <Legend />
+        
         <Line type="monotone" dataKey="value" stroke="#8884d8" label={<CustomizedLabel />} />
       </LineChart>
       </div>

@@ -20,7 +20,7 @@ const ChartSchema = new Schema({
         },
         subject: {
             type: String,
-            required: true
+            
         },
         data: [ 
             {

@@ -62,10 +62,9 @@ router.post(
 // @desc update a chart
 // @access Private
   router.post('/update',
-  passport.authenticate("jwt", { session: false }),
    async (req,res) => {
 
-
+    console.log(req.body);
 
 
      
@@ -152,11 +151,11 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
-      const chart = await Chart.findById(req.params.ChartID);
+      const chart = await  Chart.findById(req.params.ChartID).select("data").select("title");
 
       if (!chart) return res.status(404).json({ msg: "No chart was found" });
 
-      return res.status(200).json(chart.data);
+      return res.status(200).json(chart);
     } catch (err) {
       if (err.kind === "ObjectId")
         return res.status(404).json({ msg: "No chart was found" });

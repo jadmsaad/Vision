@@ -18,7 +18,8 @@ const RenderBarChart = ({chart}) => {
   
 const [chartData, setChartData] = useState({
   type: 'Bar',
-  data: ""
+  data: "",
+  title:""
 
 })
 
@@ -26,7 +27,7 @@ const loadData = async () =>{
 
   const res = await getChartData(chart._id);
   console.log(res);
-  setChartData({...chartData, data:res});
+  setChartData({...chartData, data:res.data,title:res.title});
   
 }
 
@@ -39,13 +40,13 @@ useEffect(  () => {
   return () => clearInterval(interval);
 }, []);
 
-const {data} = chartData;
+const {data,title} = chartData;
 
 if (!data) return <Loading/>
 
     return (
       <div className='post'	>
-      <h2>Title</h2>
+      <h2>{title}</h2>
       <BarChart
         width={500}
         height={300}
@@ -58,7 +59,7 @@ if (!data) return <Loading/>
         <XAxis dataKey="name" height={60} tick={<CustomizedAxisTick />} interval={0}/>
         <YAxis />
         <Tooltip />
-        <Legend />
+        
         <Bar dataKey="value" fill="#8884d8" />
 
       </BarChart>

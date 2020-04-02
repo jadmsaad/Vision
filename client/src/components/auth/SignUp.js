@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 // { setAlert, register, isAuthenticated }
 
-const SignUp = ({signUp,isAuthenticated}) => {
+const SignUp = ({signUp,isAuthenticated,charts}) => {
 
   const [formData,setFormData] = useState({
     name: "",
@@ -34,7 +34,7 @@ const SignUp = ({signUp,isAuthenticated}) => {
     
   
 
-  if(isAuthenticated) return <Redirect to ='/dashboard'/>
+  if(isAuthenticated && charts) return <Redirect to ='/dashboard'/>
 
   return (
     <Fragment>
@@ -103,12 +103,14 @@ const SignUp = ({signUp,isAuthenticated}) => {
 SignUp.propTypes = {
 
   isAuthenticated: PropTypes.bool,
+  loading: PropTypes.object,
   signUp: PropTypes.func.isRequired
 
 
 }
 const mapStateToProps = state => ({
-  isAuthenticated : state.auth.isAuthenticated
+  isAuthenticated : state.auth.isAuthenticated,
+  charts: state.charts.charts
 })
 
 

@@ -10,7 +10,7 @@ import {
   } from "./types";
 
   import setAuthToken from '../utils/setAuthToken';
-
+import {createCharts} from './chart'
 
 export const loadUser = () => async dispatch => {
 
@@ -51,15 +51,16 @@ export const loadUser = () => async dispatch => {
     try {
 
       const res = await axios.post('http://localhost:5000/api/auth/signup',body,config);
+      
 
       dispatch({
         type: SIGN_UP,
         payload: res.data
       })
 
-      dispatch(loadUser());
-
-
+     dispatch(loadUser());
+    dispatch(createCharts());
+     
     } catch (err) {
       console.log(err);
       window.alert(err);
